@@ -3,7 +3,7 @@
 
   python3 kit/qc.py <render.mp4> <product photo> [more product photos...]
 
-Reads your character from character.md. Exit code 0 = PASS, 1 = FAIL.
+Reads your character from memory/character.md. Exit code 0 = PASS, 1 = FAIL.
 """
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -43,7 +43,7 @@ Minor issues nobody would see = PASS, but list them in ai_tells."""
 def main():
     render, *prods = sys.argv[1:]
     c.load_keys()
-    p = os.path.join(c.ROOT, "character.md")
+    p = os.path.join(c.ROOT, "memory", "character.md")
     character = open(p).read().strip() if os.path.exists(p) else "No character sheet yet: judge one consistent realistic person."
     out = c.gemini_json([render] + prods, PROMPT.format(character=character), temperature=0.1)
     print(json.dumps(out, indent=1, ensure_ascii=False))
