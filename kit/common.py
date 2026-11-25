@@ -16,11 +16,11 @@ def load_keys():
                 os.environ.setdefault(k.strip(), v.strip())
 
 
-def need(name):
+def key_header(header, name):
+    """Send the key if this machine has it. In a cloud session the key is a network
+    secret instead: the cloud adds the header itself, so the kit never sees the key."""
     v = os.environ.get(name)
-    if not v:
-        raise RuntimeError(f"missing key {name} (add it to .env or the cloud environment)")
-    return v
+    return {header: v} if v else {}
 
 
 def kalo(path, body):
@@ -28,8 +28,8 @@ def kalo(path, body):
     b.update(body)
     req = urllib.request.Request(
         "https://www.kalodata.com/openapi/v1" + path, json.dumps(b).encode(),
-        {"secret-key": need("KALODATA_API_KEY"), "source-type": "SKILL",
-         "Content-Type": "application/json;charset=UTF-8"})
+        dict({"source-type": "SKILL", "Content-Type": "application/json;charset=UTF-8"},
+             **key_header("secret-key", "KALODATA_API_KEY")))
     d = json.load(urllib.request.urlopen(req, timeout=60))
     if not d.get("success"):
         raise RuntimeError(f"Kalodata: {d.get('message')} (code {d.get('code')})")
@@ -68,12 +68,13 @@ def gemini_json(files, prompt, temperature=0.2):
     body = json.dumps({"contents": [{"parts": parts}],
                        "generationConfig": {"response_mime_type": "application/json",
                                             "temperature": temperature}}).encode()
-    key, last = need("GEMINI_API_KEY"), None
+    last = None
     for model in [m for _ in range(3) for m in GEMINI_MODELS]:
         for attempt in range(3):
             req = urllib.request.Request(
                 f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
-                body, {"x-goog-api-key": key, "Content-Type": "application/json"})
+                body, dict({"Content-Type": "application/json"},
+                           **key_header("x-goog-api-key", "GEMINI_API_KEY")))
             try:
                 d = json.load(urllib.request.urlopen(req, timeout=300))
                 t = "".join(p.get("text", "") for p in d["candidates"][0]["content"]["parts"]
