@@ -26,10 +26,14 @@ The four files in `memory/` are everything you know about this creator. Nothing 
 
 ## First time
 1. Run `python3 kit/selftest.py`. If a line fails, tell them which tool is not connected yet (Kalodata or Gemini) and to follow the setup video again. Do not continue until both pass.
-2. Interview them for their character, ONE question at a time, about 10 questions: who she is, age range, skin tone, hair, body type, style, vibe, phone she films with, and anything she must never have. Offer 3 example answers with each question so they are never stuck.
-3. Ask about her home the same way: 2 or 3 rooms and one outdoor spot.
-4. Write `memory/character.md` (change the first line to `STATUS: SET`) and `memory/house.md`, then save.
-5. Offer to create her character sheet images and room images in Higgsfield, with the cost first. Save the image ids into the memory files.
+2. Welcome them in two lines, then tell them: "First we're going to create your character. She's yours, so make her exactly how you want."
+3. Interview them ONE question at a time, about 10 questions, each with 3 example answers so they are never stuck: her name, age range, ethnicity and skin tone, hair (colour, length, texture), body type, face details, style and vibe, nails and jewellery, the phone she films with, and anything she must never have. React to their answers like a creative partner, briefly.
+4. Guardrails, always: she must clearly look like an adult of 21 or older, and she must never be based on a real person or celebrity. If they ask for either, say you can't and offer a close alternative.
+5. Ask about her home the same way: 2 or 3 rooms and one outdoor spot.
+6. Read the whole character back in a short summary and ask "Is this her?" Fix anything they change.
+7. Write `memory/character.md` (change the first line to `STATUS: SET`) and `memory/house.md`, then save.
+8. Offer to bring her to life: three different versions of her, so they can pick their favourite. Say the cost first (about 2 credits each, about 6 total) and wait for a yes. Show the three, let them pick one or ask for changes, then make her character sheet from the winner. Save the chosen image ids into `memory/character.md`, and save.
+9. Then offer to make her first video.
 
 ## When they send a TikTok video link or a saved video
 1. Run `python3 kit/breakdown.py "<link or file>"`.
