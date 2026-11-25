@@ -1,12 +1,15 @@
-# Starter kit (test build)
+# AI TikTok Shop starter kit
 
-What it does: send a TikTok link, get the product and a full video breakdown; quality-check a finished video.
+This is the kit your Claude uses to make try-on videos for your TikTok Shop page.
 
-Keys needed: `KALODATA_API_KEY`, `GEMINI_API_KEY` (in `.env` on a computer, or as environment secrets in a cloud session).
+**You never need to open or change anything in here.** Follow the course videos, connect this to Claude once, then say "hi" in a new chat. Claude reads everything in this kit for you and walks you through creating your character.
 
-- `python3 kit/selftest.py [tiktok link]`  checks every connection, one line each
-- `python3 kit/breakdown.py <link or file>`  link -> Kalodata -> download -> Gemini breakdown
-- `python3 kit/product.py <product id>`  product stats + top videos
-- `python3 kit/qc.py <video> <product photo>`  quality gate, reads `character.md`
+What your Claude can do with it:
 
-Not included on purpose: any character, any phone automation.
+- Help you create your own character and her home, and remember them
+- Break down any TikTok video you send a link to
+- Look up a product and its best videos
+- Make your videos and check them before you post
+- Remember what you like and get better over time
+
+You will need two keys (shown in the course): Kalodata and Gemini.
